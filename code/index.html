@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.6/dist/js/uikit-icons.min.js"></script>
+  </head>
+  <body></body>
+
+  <script lang="javascript">
+    function getLocation() {
+      navigator.geolocation.getCurrentPosition(
+        (res) => {
+          
+        },
+        () => {
+          UIkit.modal.alert('为了精准匹配更多意向客户，请允许系统访问您的位置')
+          .then(getLocation);
+        }
+      );
+    }
+
+    getLocation();
+  </script>
+</html>
